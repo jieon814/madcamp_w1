@@ -4,8 +4,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.myapplication.R
-
 
 class PhotoAdapter(private val photos: List<Uri>) : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
 
@@ -20,8 +20,12 @@ class PhotoAdapter(private val photos: List<Uri>) : RecyclerView.Adapter<PhotoAd
     }
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
-        // 각 사진을 ViewHolder에 바인딩
-        holder.photoImageView.setImageURI(photos[position])
+        val photoUri = photos[position]
+        // Glide를 사용해 이미지 로드
+        Glide.with(holder.photoImageView.context)
+            .load(photoUri)
+            .centerCrop()
+            .into(holder.photoImageView)
     }
 
     override fun getItemCount(): Int {
