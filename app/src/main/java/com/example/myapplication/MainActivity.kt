@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
+//         시스템 바 숨기기
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.navigationBars())
         } else {
@@ -41,16 +41,16 @@ class MainActivity : AppCompatActivity() {
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
              when (position) {
                 0 -> {
-                    tab.text = "커픽 랭킹"
-                    tab.icon = ContextCompat.getDrawable(this, R.drawable.tab_1)
+                    tab.text = "Coffic"
+                    tab.icon = ContextCompat.getDrawable(this, R.drawable.bottom_bar_tab1_icon)
                 }      // 첫 번째 탭
                 1 -> {
-                    tab.text = "니픽"
-                    tab.icon = ContextCompat.getDrawable(this, R.drawable.ic_home_foreground)
+                    tab.text = "U-pick"
+                    tab.icon = ContextCompat.getDrawable(this, R.drawable.bottom_bar_tab2_icon)
                 }    // 두 번째 탭
                 2 -> {
-                    tab.text = "내픽"
-                    tab.icon = ContextCompat.getDrawable(this, R.drawable.ic_home_foreground)
+                    tab.text = "My-pick"
+                    tab.icon = ContextCompat.getDrawable(this, R.drawable.bottom_bar_tab3_icon)
                 }       // 세 번째 탭
                 else -> null
             }
