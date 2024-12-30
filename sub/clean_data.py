@@ -1,15 +1,14 @@
 import json
 
-# 원본 데이터를 저장한 텍스트 파일 경로
-input_file = "cafe_data.txt"  # 기존 데이터를 저장한 파일 이름
-output_file = "cafe_data.json"    # 저장할 JSON 파일 이름
+input_file = "cafe_data_2.txt"  # 저장한 파일 이름
+output_file = "cafe_data_2.json"    # 저장할 파일 이름
 
-# 텍스트 파일에서 데이터를 불러오기
 with open(input_file, "r", encoding="utf-8") as file:
     data_content = file.read()
 
 # 문자열 데이터를 Python 딕셔너리로 변환
-data = eval(data_content)  # eval은 안전하지 않은 입력 데이터에는 사용하지 마세요.
+data = eval(data_content) 
+
 
 # JSON 파일로 저장
 with open(output_file, "w", encoding="utf-8") as file:
@@ -60,8 +59,7 @@ def sort_by_day(new_text):
         for day in day_order.keys():
             if item.startswith(day):
                 return day_order[day]
-        return 100  # 우선순위에 없는 경우 맨 뒤로 이동
-    # 정렬 
+        return 100  # 맨 뒤로
     sorted_text = sorted(new_text, key=get_day_order)
     return sorted_text  
   
@@ -73,18 +71,15 @@ with open(output_file) as file:
         cafe_location = json_data[cafe_name][0]
         cafe_schedule = json_data[cafe_name][1]
         cafe_number = json_data[cafe_name][2]
+        cafe_img = json_data[cafe_name][3][0]
         # print(type(cafe_schedule))
         cafe_new_schedule = clean_newlines(cafe_schedule)
-        json_data[cafe_name] = [cafe_location, cafe_new_schedule, cafe_number]
+        json_data[cafe_name] = [cafe_location, cafe_new_schedule, cafe_number, cafe_img]
     print(json_data)
 
-filename = "cafe_data_cleaned.json"
+filename = "cafe_data_cleaned_2.json"
 with open(filename, "w", encoding="utf-8") as file:
     json.dump(json_data, file, ensure_ascii=False, indent=4)
-
-# 크롤링이 완료된 후, 데이터 저장
-
-
 
 
 # print(f"JSON 파일로 저장 완료: {output_file}")
