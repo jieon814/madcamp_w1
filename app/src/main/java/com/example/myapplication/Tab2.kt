@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import GridSpacingItemDecoration
 import PhotoAdapter
 import android.app.Activity
 import android.content.Intent
@@ -34,8 +35,10 @@ class Tab2 : Fragment(R.layout.fragment_tab2) {
         addPhotoButton = view.findViewById(R.id.addPhotoButton)
 
         // RecyclerView 간격 설정
-        val spacing = resources.getDimensionPixelSize(R.dimen.recycler_view_spacing) // 0.4dp
+//        val spacing = resources.getDimensionPixelSize(R.dimen.recycler_view_spacing) // 0.4dp
         //recyclerView.addItemDecoration(GridSpacingItemDecoration(3, spacing))
+        val spacing = resources.getDimensionPixelSize(R.dimen.recycler_view_spacing) // 간격 크기
+        recyclerView.addItemDecoration(GridSpacingItemDecoration(3, spacing, true)) // 3열, 간격 포함
         recyclerView.addItemDecoration(VerticalItemDecorator( spacing))
         recyclerView.layoutManager =
             GridLayoutManager(requireContext(), 3, RecyclerView.VERTICAL, false) // 3열 그리드

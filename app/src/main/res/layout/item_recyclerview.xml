@@ -1,39 +1,121 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="200dp"
+    android:layout_margin="0dp"
+    android:paddingLeft="10dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/shopImage"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="48dp"
+        android:background="@drawable/background_radius_16dp"
+        android:clipToOutline="true"
+        android:src="@drawable/cafe1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/shopName"
+        android:layout_width="199dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="132dp"
+        android:layout_marginTop="48dp"
+        android:drawableStart="@drawable/phone"
+        android:drawablePadding="8dp"
+        android:text="베이크샵 수하 용전점"
+        android:fontFamily="@font/preahvihear_regular"
+        android:textSize="18sp"
+
+        app:layout_constraintBottom_toTopOf="@+id/shopHours"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread" />
+
+    <TextView
+        android:id="@+id/shopHours"
+        android:layout_width="216dp"
+        android:layout_height="23dp"
+        android:layout_marginTop="2dp"
+        android:text="영업시간 11:00 - 20:30"
+        android:fontFamily="@font/preahvihear_regular"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shopName" />
+
+    <TextView
+        android:id="@+id/shopAddress"
+        android:layout_width="265dp"
+        android:layout_height="21dp"
+        android:text="대전 동구 계족로 416 1층, 베이크샵 수하"
+        android:fontFamily="@font/preahvihear_regular"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.927"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/shopHours" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:padding="20dp">
+        android:id="@+id/likeSection"
+        android:layout_width="246dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="2dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.776"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/shopAddress">
 
-        <!--프로필-->
+        <!-- 첫 번째 하트와 숫자 -->
+
         <ImageView
-            android:id="@+id/profile"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/cafe1"/>
+            android:layout_width="37dp"
+            android:layout_height="37dp"
+            android:src="@drawable/ic_heart_orange" />
 
-        <!--카페이름-->
         <TextView
-            android:id="@+id/cafe_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="@string/카페1"
-            android:textSize="16sp"
-            android:textColor="#000"/>
+            android:layout_marginLeft="3dp"
+            android:text="10"
+            android:textSize="12sp" />
+
+
+        <!-- 두 번째 하트와 숫자 -->
+        <ImageView
+            android:layout_width="37dp"
+            android:layout_height="37dp"
+            android:layout_marginLeft="40dp"
+            android:src="@drawable/ic_heart_yellow" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="40dp"
+            android:text="10"
+            android:textSize="12sp" />
+
+        <!-- 세 번째 하트와 숫자 -->
+        <ImageView
+            android:layout_width="37dp"
+            android:layout_height="37dp"
+            android:src="@drawable/ic_heart_blue" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10"
+            android:textSize="12sp" />
+
 
     </LinearLayout>
 
-    <!--구분선-->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginHorizontal="10dp"
-        android:background="#aaa"/>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.utils.isKspPluginApplied
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -33,6 +35,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -40,7 +45,7 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.15.1")
     implementation("androidx.viewpager2:viewpager2:1.1.0-beta01")
     implementation("com.google.android.material:material:1.12.0")
-    // 리싸이클 뷰를 위한 dependency 추가
+    // recycler 뷰를 위한 dependency 추가
     implementation("com.android.support:recyclerview-v7:28.0.0")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation(libs.androidx.core.ktx)

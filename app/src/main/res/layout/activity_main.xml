@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -10,17 +9,38 @@
     tools:context=".MainActivity">
 
     <!-- ViewPager2 at the top -->
+    <!-- height 0 과 weight 1을 함께 사용. : 남은 화면 공간의 비율에 따라 동적으로 결정됨. -->
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
 
+
     <!-- TabLayout at the bottom -->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:tabIconTint="@null"/>
+        android:layout_height="80dp"
+        app:tabIconTint="@null">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab1_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:icon="@drawable/house_01" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab2_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:icon="@drawable/bottom_bar_tab2_icon" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab3_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:icon="@drawable/bottom_bar_tab3_icon" />
+    </com.google.android.material.tabs.TabLayout>
 
 </LinearLayout>
