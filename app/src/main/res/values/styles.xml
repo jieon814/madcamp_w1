@@ -1,0 +1,12 @@
+<resources>
+    <style name="FullScreenDialog" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@android:color/white</item>
+    </style>
+    <style name="CustomDialogStyle" parent="Theme.AppCompat.Dialog">
+        <item name="android:background">@android:color/white</item> <!-- 배경을 흰색으로 설정 -->
+        <item name="android:windowBackground">@android:color/white</item>
+    </style>
+
+</resources>

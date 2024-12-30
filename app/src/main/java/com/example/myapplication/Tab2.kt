@@ -1,112 +1,71 @@
 package com.example.myapplication
 
-import PhotoAdapter
-import android.app.Activity
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import java.io.File
-import java.io.FileOutputStream
 
-class Tab2 : Fragment(R.layout.fragment_tab2) {
+class Tab2 : Fragment(R.layout.fragment_tab2), AddPostListener {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var addPhotoButton: Button
-    private val pickImageRequestCode = 100
-
-    private val photoList = mutableListOf<Uri>() // 사진 URI를 저장하는 리스트
+    private lateinit var addPostButton: Button
     private lateinit var photoAdapter: PhotoAdapter
+    private val photoList = mutableListOf<Post>()
+    private lateinit var dataManager: DataManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // DataManager 초기화
+        dataManager = DataManager(requireContext())
+
+        // RecyclerView와 추가 버튼 초기화
         recyclerView = view.findViewById(R.id.recyclerView)
-        addPhotoButton = view.findViewById(R.id.addPhotoButton)
+        addPostButton = view.findViewById(R.id.addPostButtonTab2)
 
+        // RecyclerView 설정
+        recyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
+        recyclerView.addItemDecoration(GridSpacingItemDecoration(3, 2)) // 간격 추가 (1dp)
 
-        recyclerView.layoutManager = GridLayoutManager(requireContext(), 3) // 3열 그리드
-
-        // RecyclerView 어댑터 설정
-        photoAdapter = PhotoAdapter(photoList)
+        photoAdapter = PhotoAdapter(photoList) { post ->
+            // 사진 클릭 시 다이얼로그 표시
+            val dialog = ViewPostDialogFragment.newInstance(post.photoUri, post.text)
+            dialog.show(parentFragmentManager, "ViewPostDialog")
+        }
         recyclerView.adapter = photoAdapter
 
-        // 사진 추가 버튼 클릭 리스너
-        addPhotoButton.setOnClickListener {
-            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-            startActivityForResult(intent, pickImageRequestCode)
+        // 추가 버튼 클릭 시 다이얼로그 표시
+        addPostButton.setOnClickListener {
+            val dialog = AddPostDialogFragment.newInstance()
+
+            // ***Tab2를 명시적으로 설정***
+            dialog.setTargetFragment(this, 0)
+
+            dialog.show(parentFragmentManager, "AddPostDialog")
         }
+        // 데이터 로드
+        loadPosts()
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        // 저장된 사진을 로드하여 RecyclerView 업데이트
-        val savedImages = getSavedImages()
-        if (photoList != savedImages) { // 기존 리스트와 비교하여 업데이트
-            photoList.clear()
-            photoList.addAll(savedImages)
-            photoAdapter.notifyDataSetChanged()
-            Log.d("RecyclerView", "RecyclerView updated with saved images")
-        }
+    // SharedPreferences에서 데이터 로드
+    private fun loadPosts() {
+        photoList.clear()
+        photoList.addAll(dataManager.loadPosts())
+        photoAdapter.notifyDataSetChanged()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == pickImageRequestCode && resultCode == Activity.RESULT_OK) {
-            val selectedImageUri: Uri? = data?.data
-            selectedImageUri?.let {
-                // 선택한 이미지를 저장
-                val fileName =
-                    "image_${System.currentTimeMillis()}.jpg"
-                val isSaved = saveImageToInternalStorage(it, fileName) // 로컬 저장소에 저장
-                if (isSaved) {
-                    val newUri = Uri.fromFile(File(requireContext().filesDir, fileName))
-                    photoList.add(0, newUri) // 맨 앞에 추가
-                    photoAdapter.notifyItemInserted(0) // 특정 항목 갱신
+    // AddPostListener 구현
+    override fun onPostAdded(photoUri: String, postText: String) {
+        Log.d("Tab2", "onPostAdded 호출됨: $photoUri, $postText")
 
-                    recyclerView.post {
-                        recyclerView.scrollToPosition(0)
-                        recyclerView.requestLayout()
-                    }
-
-                    Toast.makeText(requireContext(), "Photo added!", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(requireContext(), "Failed to save photo", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-    }
-
-    private fun saveImageToInternalStorage(uri: Uri, fileName: String): Boolean {
-        return try {
-            val inputStream = requireContext().contentResolver.openInputStream(uri)
-            val file = File(requireContext().filesDir, fileName)
-            val outputStream = FileOutputStream(file)
-
-            inputStream?.copyTo(outputStream)
-            inputStream?.close()
-            outputStream.close()
-            Log.d("SaveImage", "File saved at: ${file.absolutePath}")
-            true
-        } catch (e: Exception) {
-            e.printStackTrace()
-            Log.e("SaveImage", "Failed to save image", e)
-            false
-        }
-    }
-
-    private fun getSavedImages(): List<Uri> {
-        val directory = requireContext().filesDir
-        val files = directory.listFiles()?.filter { it.extension == "jpg" } ?: emptyList()
-        files.forEach { Log.d("GetSavedImages", "File found: ${it.absolutePath}") }
-        return files.map { Uri.fromFile(it) }
+        val newPost = Post(photoUri = photoUri, text = postText)
+        photoList.add(0, newPost) // 맨 위에 추가
+        Log.d("Tab2", "photoList 크기: ${photoList.size}")
+        photoAdapter.notifyItemInserted(0) // RecyclerView 업데이트
+        recyclerView.scrollToPosition(0) // 추가된 위치로 스크롤
+        dataManager.savePosts(photoList) // SharedPreferences에 저장
     }
 }

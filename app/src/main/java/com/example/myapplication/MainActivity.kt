@@ -18,14 +18,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.hide(WindowInsets.Type.systemBars())
+            window.insetsController?.hide(WindowInsets.Type.navigationBars())
         } else {
             @Suppress("DEPRECATION")
             window.decorView.systemUiVisibility = (
                     View.SYSTEM_UI_FLAG_FULLSCREEN or
-                            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
-                            View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                     )
         }
 
@@ -42,15 +42,15 @@ class MainActivity : AppCompatActivity() {
              when (position) {
                 0 -> {
                     tab.text = "커픽 랭킹"
-                    tab.icon = ContextCompat.getDrawable(this, R.drawable.ic_my_page_foreground)
+                    tab.icon = ContextCompat.getDrawable(this, R.drawable.tab_1)
                 }      // 첫 번째 탭
                 1 -> {
                     tab.text = "니픽"
-                    tab.icon = ContextCompat.getDrawable(this, R.drawable.ic_my_page_foreground)
+                    tab.icon = ContextCompat.getDrawable(this, R.drawable.ic_home_foreground)
                 }    // 두 번째 탭
                 2 -> {
                     tab.text = "내픽"
-                    tab.icon = ContextCompat.getDrawable(this, R.drawable.ic_my_page_foreground)
+                    tab.icon = ContextCompat.getDrawable(this, R.drawable.ic_home_foreground)
                 }       // 세 번째 탭
                 else -> null
             }
