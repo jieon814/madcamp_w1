@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myapplication.databinding.ItemRecyclerviewBinding
@@ -68,6 +69,10 @@ class Tab1Adapter(
                 binding.petPickCount.text = updatedPickData.petPick.toString()
                 updateButtonImages(updatedPickData)
             }
+
+            binding.shopImage.setOnClickListener {
+                showCafeDialog(item)
+            }
         }
 
         // 버튼 이미지를 상태에 따라 업데이트
@@ -86,6 +91,14 @@ class Tab1Adapter(
             binding.petPickButton.setImageResource(
                 if (pickData.isPetPicked) R.drawable.ic_heart_blue_filled else R.drawable.ic_heart_blue
             )
+        }
+
+        private fun showCafeDialog(item: CafeData) {
+            val context = binding.root.context
+            val dialog = ViewCafeDialogFragment.newInstance(item.imageUrl, item.name)
+            if (context is FragmentActivity) {
+                dialog.show(context.supportFragmentManager, "ViewPostDialog")
+            }
         }
     }
 }
