@@ -5,21 +5,23 @@
     android:gravity="center"
     android:orientation="vertical"
     android:background="@color/white">
-
     <Spinner
         android:id="@+id/my_spinner"
         style="@style/Widget.AppCompat.Spinner"
-        android:layout_width="140dp"
+        android:layout_width="210dp"
         android:layout_height="35dp"
-        android:layout_marginStart="-130dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="-85dp"
+        android:layout_marginTop="15dp"
         android:layout_marginBottom="10dp"
+        android:spinnerMode="dropdown"
         android:background="@drawable/d"
         android:dropDownWidth="match_parent"
-        android:dropDownVerticalOffset="30dp"
+        android:dropDownVerticalOffset="50dp"
         android:paddingStart="10dp"
         android:paddingEnd="0dp"
+        android:paddingBottom="0.5dp"
         android:popupBackground="@android:color/white" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

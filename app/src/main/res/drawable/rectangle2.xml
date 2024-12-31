@@ -1,0 +1,12 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="4dp"
+    android:height="4dp"
+    android:viewportWidth="126"
+    android:viewportHeight="27">
+
+    <!-- 투명한 네모 -->
+    <path android:strokeWidth="1"
+    android:strokeColor="#00000000"
+    android:pathData="M0.5,0.5h125v26h-125z"
+    android:fillColor="#00000000" />
+</vector>

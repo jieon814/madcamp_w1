@@ -1,8 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textSize="20sp"
-    android:fontFamily="@font/questrial_regular"
-    android:textColor="@android:color/black"
-    android:gravity="center"/>
+    android:orientation="horizontal"
+    android:paddingBottom="0.5dp"
+    android:paddingLeft="10dp">
+
+    <ImageView
+        android:id="@+id/spinnerImage"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:src="@drawable/rectangle2" />
+
+    <TextView
+        android:id="@+id/spinnerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="17sp"
+        android:fontFamily="@font/questrial_regular"
+        android:textColor="@android:color/black"
+        android:gravity="center_vertical" />
+
+</LinearLayout>
