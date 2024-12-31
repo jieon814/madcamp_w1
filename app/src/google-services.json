@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "234001511574",
+    "project_id": "coffic-89f91",
+    "storage_bucket": "coffic-89f91.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:234001511574:android:fde1426c535f7ba56d3eb7",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_jSLw2odbj2hW2CuMX5Q-RPV5LqBkizk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

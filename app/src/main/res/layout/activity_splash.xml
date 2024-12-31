@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/android_compact___19"
+
+    > <!-- 배경 이미지 설정 -->
+
+    <LinearLayout
+        android:id = "@+id/splash_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="280dp">
+
+        <TextView
+            android:id="@+id/first_text"
+            android:layout_width="38dp"
+            android:layout_height="90dp"
+            android:text="C"
+            android:textColor="@color/white"
+            android:textSize="68sp"
+            android:fontFamily="@font/wittgenstein_font" />
+
+        <!-- 이미지 -->
+        <ImageView
+            android:id="@+id/coffee_bean_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:src="@drawable/coffee_bean1" />
+
+        <!-- ffic 텍스트 -->
+        <TextView
+            android:id="@+id/second_text"
+            android:layout_width="wrap_content"
+            android:layout_height="90dp"
+            android:text="ffic"
+            android:textColor="@color/white"
+            android:textSize="68sp"
+            android:fontFamily="@font/wittgenstein_font" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/splash_subtext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/splash_logo"
+    android:layout_marginTop="0dp"
+    android:layout_centerHorizontal="true"
+    android:textColor="@color/white"
+    android:textSize="24sp"
+        android:fontFamily="@font/wittgenstein_font"
+    android:text="Pick your daily cafe"
+    android:gravity="center" />
+
+
+</RelativeLayout>

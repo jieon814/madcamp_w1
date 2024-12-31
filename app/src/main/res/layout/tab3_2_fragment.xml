@@ -8,11 +8,4 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <Button
-        android:id="@+id/addPostButtonTab2"
-        android:layout_width="125dp"
-        android:layout_height="45dp"
-        android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="16dp"
-        android:text="게시물 추가" />
 </FrameLayout>
