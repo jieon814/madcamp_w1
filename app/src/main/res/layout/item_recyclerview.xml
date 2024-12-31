@@ -2,35 +2,45 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="120dp"
     android:layout_margin="0dp"
-    android:paddingLeft="10dp">
+    android:paddingLeft="10dp"
+    android:background="@drawable/item_border">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/shopImage"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="48dp"
+        android:layout_width="105dp"
+        android:layout_height="105dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/background_radius_16dp"
+        android:scaleType="centerCrop"
         android:clipToOutline="true"
-        android:src="@drawable/cafe1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="5dp"
         app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/phoneIcon"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:src="@drawable/phone"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="125dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/shopHours"/>
 
     <TextView
         android:id="@+id/shopName"
         android:layout_width="199dp"
-        android:layout_height="29dp"
-        android:layout_marginStart="132dp"
-        android:layout_marginTop="48dp"
-        android:drawableStart="@drawable/phone"
-        android:drawablePadding="8dp"
-        android:text="베이크샵 수하 용전점"
+        android:layout_height="26dp"
+        android:layout_marginStart="155dp"
+        android:layout_marginTop="10dp"
+        android:drawablePadding="3dp"
         android:fontFamily="@font/preahvihear_regular"
-        android:textSize="18sp"
-
+        android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/shopHours"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -39,25 +49,23 @@
     <TextView
         android:id="@+id/shopHours"
         android:layout_width="216dp"
-        android:layout_height="23dp"
-        android:layout_marginTop="2dp"
-        android:text="영업시간 11:00 - 20:30"
+        android:layout_height="20dp"
+        android:layout_marginTop="0dp"
         android:fontFamily="@font/preahvihear_regular"
-        android:textSize="14sp"
+        android:textSize="11sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.7"
+        app:layout_constraintHorizontal_bias="0.72"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/shopName" />
 
     <TextView
         android:id="@+id/shopAddress"
         android:layout_width="265dp"
-        android:layout_height="21dp"
-        android:text="대전 동구 계족로 416 1층, 베이크샵 수하"
+        android:layout_height="20dp"
         android:fontFamily="@font/preahvihear_regular"
-        android:textSize="14sp"
+        android:textSize="11sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.927"
+        app:layout_constraintHorizontal_bias="0.968"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/shopHours" />
 
@@ -65,7 +73,7 @@
         android:id="@+id/likeSection"
         android:layout_width="246dp"
         android:layout_height="43dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="0dp"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -76,44 +84,50 @@
         <!-- 첫 번째 하트와 숫자 -->
 
         <ImageView
-            android:layout_width="37dp"
-            android:layout_height="37dp"
+            android:id="@+id/studyPickButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@drawable/ic_heart_orange" />
 
         <TextView
+            android:id="@+id/studyPickCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
             android:text="10"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
 
 
         <!-- 두 번째 하트와 숫자 -->
         <ImageView
-            android:layout_width="37dp"
-            android:layout_height="37dp"
+            android:id="@+id/datePickButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginLeft="40dp"
             android:src="@drawable/ic_heart_yellow" />
 
         <TextView
+            android:id="@+id/datePickCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
             android:layout_marginRight="40dp"
             android:text="10"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
 
         <!-- 세 번째 하트와 숫자 -->
         <ImageView
-            android:layout_width="37dp"
-            android:layout_height="37dp"
+            android:id="@+id/petPickButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@drawable/ic_heart_blue" />
 
         <TextView
+            android:id="@+id/petPickCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="10"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
 
 
     </LinearLayout>
