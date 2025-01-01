@@ -1,3 +1,4 @@
+
 package com.example.myapplication
 
 import SpaceItemDecoration
@@ -16,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.databinding.FragmentTab1Binding
 
+
 class Tab1 : Fragment(R.layout.fragment_tab1) {
 
     private lateinit var binding: FragmentTab1Binding
@@ -23,6 +25,7 @@ class Tab1 : Fragment(R.layout.fragment_tab1) {
     private lateinit var purposeType: ArrayList<Purpose>
     private lateinit var adapter: Tab1Adapter
     private lateinit var pickManager: PickManager
+
 
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,8 +41,10 @@ class Tab1 : Fragment(R.layout.fragment_tab1) {
             Purpose("Pet Pick Rank")
         )
         // PickManager 초기화
-        pickManager = PickManager(requireContext())
+        pickManager = SharedPickManager.pickManager
     }
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,11 +53,33 @@ class Tab1 : Fragment(R.layout.fragment_tab1) {
     ): View {
         // View Binding 초기화
         binding = FragmentTab1Binding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         // RecyclerView 초기화
         setupRecyclerView()
+        // 변경 사항 감지
+        SharedPickManager.registerListener {
+            updateRecyclerView()
+        }
         // Spinner 초기화
         setupSpinner()
-        return binding.root
+    }
+
+    private fun updateRecyclerView() {
+        // 현재 RecyclerView에서 표시 중인 카페 데이터 목록을 가져옴
+        val cafes = adapter.getCurrentData()
+
+        // 카페 데이터와 Pick 상태를 결합
+        val updatedCafes = cafes.map { cafe ->
+            val pickData = pickManager.loadPickData(cafe.name) // Pick 상태를 가져옴
+            Pair(cafe, pickData) // CafeData와 CafePickData를 Pair로 묶음
+        }
+
+        // 어댑터에 업데이트된 데이터 전달
+        adapter.updateData(updatedCafes)
     }
 
     private fun setupRecyclerView() {
@@ -76,9 +103,21 @@ class Tab1 : Fragment(R.layout.fragment_tab1) {
         // Spinner 선택 이벤트 처리
         binding.mySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val selectedItem = parent?.getItemAtPosition(position) as Purpose
-                // 선택된 아이템에 따른 처리
+            val selectedItem = parent?.getItemAtPosition(position) as Purpose
+            // 현재 데이터 로드
+            val cafes = tab1DataManager.loadCafes()
+
+            // 선택된 정렬 기준에 따라 데이터 정렬
+            val sortedCafes = when (selectedItem.purpose) {
+                "Study Pick Rank" -> cafes.sortedByDescending { pickManager.loadPickData(it.name).studyPick }
+                "Date Pick Rank" -> cafes.sortedByDescending { pickManager.loadPickData(it.name).datePick }
+                "Pet Pick Rank" -> cafes.sortedByDescending { pickManager.loadPickData(it.name).petPick }
+                else -> cafes // 기본 정렬
             }
+
+            // 어댑터에 정렬된 데이터 전달
+            adapter.updateData(sortedCafes.map { Pair(it, pickManager.loadPickData(it.name)) })
+        }
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 // 아무것도 선택되지 않은 상태 처리
             }

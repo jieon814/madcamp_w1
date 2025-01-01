@@ -12,12 +12,14 @@ class RecyclerViewFragment2 : Fragment(R.layout.tab3_2_fragment) {
     private lateinit var photoAdapter: PhotoAdapter
     private val photoList = mutableListOf<Post>()
     private lateinit var dataManager: DataManager
+    private lateinit var pickManager: PickManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // DataManager 초기화
+        // DataManager 및 PickManager 초기화
         dataManager = DataManager(requireContext())
+        pickManager = PickManager(requireContext())
 
         // RecyclerView 초기화
         recyclerView = view.findViewById(R.id.recyclerView)
@@ -31,20 +33,29 @@ class RecyclerViewFragment2 : Fragment(R.layout.tab3_2_fragment) {
         }
         recyclerView.adapter = photoAdapter
 
-        // 데이터 로드
-        loadPosts()
+        // 좋아요한 항목만 로드
+        loadLikedPosts()
     }
 
-    // SharedPreferences에서 데이터 로드
-    private fun loadPosts() {
+    // 좋아요한 항목만 로드
+    private fun loadLikedPosts() {
         photoList.clear()
-        photoList.addAll(dataManager.loadPosts())
+
+        // 모든 게시물 로드
+        val allPosts = dataManager.loadPosts()
+
+        // 좋아요한 게시물 필터링
+        val likedPosts = allPosts.filter { post ->
+            val pickData = pickManager.loadPickData(post.text) // 게시물 이름(text)을 기반으로 좋아요 상태 확인
+            pickData.isStudyPicked || pickData.isDatePicked || pickData.isPetPicked
+        }
+
+        photoList.addAll(likedPosts)
         photoAdapter.notifyDataSetChanged()
     }
+
     override fun onResume() {
         super.onResume()
-        loadPosts() // 탭으로 돌아올 때 데이터 갱신
+        loadLikedPosts() // 탭으로 돌아올 때 좋아요 데이터 갱신
     }
-
-
 }

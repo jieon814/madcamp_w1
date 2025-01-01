@@ -17,13 +17,11 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-
     <!-- TabLayout at the bottom -->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-
         app:tabIconTint="@null"
         android:background="@color/white">
 

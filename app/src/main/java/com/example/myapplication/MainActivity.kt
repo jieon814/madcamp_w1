@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         FirebaseApp.initializeApp(this)
 
         setContentView(R.layout.activity_main)
+        SharedPickManager.pickManager = PickManager(applicationContext)
 
 
         val tabLayout = findViewById<TabLayout>(R.id.tabLayout)

@@ -36,6 +36,7 @@ class Tab1_DataManager(private val context: Context) {
     }
 
 
+
     fun getCachedCafes(): List<CafeData> {
         return cachedData
     }
