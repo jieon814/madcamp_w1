@@ -3,7 +3,7 @@ package com.example.myapplication
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
+import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 class Tab2 : Fragment(R.layout.fragment_tab2), AddPostListener {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var addPostButton: Button
+    private lateinit var addPostButton: ImageButton
     private lateinit var photoAdapter: PhotoAdapter
     private val photoList = mutableListOf<Post>()
     private lateinit var dataManager: DataManager
@@ -32,7 +32,7 @@ class Tab2 : Fragment(R.layout.fragment_tab2), AddPostListener {
 
         photoAdapter = PhotoAdapter(photoList) { post ->
             // 사진 클릭 시 다이얼로그 표시
-            val dialog = ViewPostDialogFragment.newInstance(post.photoUri, post.text)
+            val dialog = ViewPostDialogFragment.newInstance(post.photoUri, post.text, post.additionalText)
             dialog.show(parentFragmentManager, "ViewPostDialog")
         }
         recyclerView.adapter = photoAdapter
@@ -58,10 +58,10 @@ class Tab2 : Fragment(R.layout.fragment_tab2), AddPostListener {
     }
 
     // AddPostListener 구현
-    override fun onPostAdded(photoUri: String, postText: String) {
-        Log.d("Tab2", "onPostAdded 호출됨: $photoUri, $postText")
+    override fun onPostAdded(photoUri: String, postText: String, additionalText: String) {
+        Log.d("Tab2", "onPostAdded 호출됨: $photoUri, $postText, $additionalText")
 
-        val newPost = Post(photoUri = photoUri, text = postText)
+        val newPost = Post(photoUri = photoUri, text = postText, additionalText = additionalText)
         photoList.add(0, newPost) // 맨 위에 추가
         Log.d("Tab2", "photoList 크기: ${photoList.size}")
         photoAdapter.notifyItemInserted(0) // RecyclerView 업데이트

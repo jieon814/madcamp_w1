@@ -27,7 +27,6 @@
             android:src="@drawable/chevron_left" />
     </RelativeLayout>
 
-
     <View
         android:id="@+id/dividerLine"
         android:layout_width="match_parent"
@@ -39,13 +38,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-
     <!-- 프로필 사진 + 텍스트 -->
     <LinearLayout
         android:id="@+id/middleLayout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-
         android:orientation="horizontal"
         android:background="@android:color/transparent"
         app:layout_constraintTop_toBottomOf="@id/backButtonLayout"
@@ -54,17 +51,17 @@
         android:gravity="center_vertical"
         android:padding="0dp">
 
-    <!-- 사진 -->
-    <ImageView
-        android:id="@+id/middleImageView"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="7dp"
-        android:layout_marginEnd="8dp"
-        android:src="@drawable/frame_8__1_"
-        android:contentDescription="중간 레이아웃 사진" />
+        <!-- 사진 -->
+        <ImageView
+            android:id="@+id/middleImageView"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="7dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/frame_8__1_"
+            android:contentDescription="중간 레이아웃 사진" />
 
-    <!-- 텍스트 -->
+        <!-- 텍스트 -->
         <TextView
             android:id="@+id/middleTextView"
             android:layout_width="match_parent"
@@ -75,8 +72,7 @@
             android:textSize="23dp" />
     </LinearLayout>
 
-    <!-- 텍스트 내용 -->
-
+    <!-- 이미지 -->
     <ImageView
         android:id="@+id/photoImageView"
         android:layout_width="match_parent"
@@ -89,6 +85,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/middleLayout" />
 
+    <!-- 텍스트 영역 -->
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -97,12 +94,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <TextView
-            android:id="@+id/postTextView"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:textSize="16sp"
-            android:textColor="@android:color/black" />
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/postTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/additionalTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="16sp"
+                android:textColor="@android:color/black" />
+        </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

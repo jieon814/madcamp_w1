@@ -26,7 +26,11 @@ class RecyclerViewFragment2 : Fragment(R.layout.tab3_2_fragment) {
 
         photoAdapter = PhotoAdapter(photoList) { post ->
             // 사진 클릭 시 다이얼로그 표시
-            val dialog = ViewPostDialogFragment.newInstance(post.photoUri, post.text)
+            val dialog = ViewPostDialogFragment.newInstance(
+                photoUri = post.photoUri,
+                postText = post.text,
+                additionalText = post.additionalText // 추가 텍스트 전달
+            )
             dialog.show(parentFragmentManager, "ViewPostDialog")
         }
         recyclerView.adapter = photoAdapter
@@ -41,10 +45,9 @@ class RecyclerViewFragment2 : Fragment(R.layout.tab3_2_fragment) {
         photoList.addAll(dataManager.loadPosts())
         photoAdapter.notifyDataSetChanged()
     }
+
     override fun onResume() {
         super.onResume()
         loadPosts() // 탭으로 돌아올 때 데이터 갱신
     }
-
-
 }

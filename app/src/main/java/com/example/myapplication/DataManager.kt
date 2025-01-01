@@ -1,11 +1,11 @@
 package com.example.myapplication
 
 import android.content.Context
-import android.net.Uri
 import org.json.JSONArray
 import org.json.JSONObject
 
-data class Post(val photoUri: String, val text: String)
+data class Post(val photoUri: String, val text: String, val additionalText: String)
+
 
 class DataManager(private val context: Context) {
 
@@ -18,6 +18,7 @@ class DataManager(private val context: Context) {
             val jsonObject = JSONObject()
             jsonObject.put("photoUri", post.photoUri)
             jsonObject.put("text", post.text)
+            jsonObject.put("additionalText", post.additionalText) // 추가 필드 저장
             jsonArray.put(jsonObject)
         }
         sharedPreferences.edit().putString("posts", jsonArray.toString()).apply()
@@ -33,7 +34,8 @@ class DataManager(private val context: Context) {
             val jsonObject = jsonArray.getJSONObject(i)
             val photoUri = jsonObject.getString("photoUri")
             val text = jsonObject.getString("text")
-            postList.add(Post(photoUri, text))
+            val additionalText = jsonObject.optString("additionalText", "") // 추가 필드 로드
+            postList.add(Post(photoUri, text, additionalText))
         }
 
         return postList

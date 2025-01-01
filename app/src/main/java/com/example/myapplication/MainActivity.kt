@@ -4,6 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
+import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -29,19 +30,24 @@ class MainActivity : AppCompatActivity() {
         val adapter = TabAdapter(this)
         viewPager.adapter = adapter
 
+        viewPager.setCurrentItem(1, false) // smoothScroll을 false로 설정해 즉시 이동
+
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
              when (position) {
                 0 -> {
                     tab.text = "Coffic"
-                    tab.icon = ContextCompat.getDrawable(this, R.drawable.bottom_bar_tab1_icon)
+                    tab.icon = ContextCompat.getDrawable(this, R.drawable.new_tab1)
                 }      // 첫 번째 탭
-                1 -> {
-                    tab.text = "U-pick"
-                    tab.icon = ContextCompat.getDrawable(this, R.drawable.bottom_bar_tab2_icon)
-                }    // 두 번째 탭
+                 1 -> {
+                     // Custom Tab Layout 적용
+                     val customTab = layoutInflater.inflate(R.layout.custom_tab, null)
+                     val tabIcon = customTab.findViewById<ImageView>(R.id.tab_icon)
+                     tabIcon.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.main_logo))
+                     tab.customView = customTab
+                 }
                 2 -> {
                     tab.text = "My-pick"
-                    tab.icon = ContextCompat.getDrawable(this, R.drawable.bottom_bar_tab3_icon)
+                    tab.icon = ContextCompat.getDrawable(this, R.drawable.new_tab3)
                 }       // 세 번째 탭
                 else -> null
             }

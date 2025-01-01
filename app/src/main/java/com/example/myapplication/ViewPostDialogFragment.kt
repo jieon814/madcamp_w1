@@ -1,7 +1,6 @@
 package com.example.myapplication
 
 import android.Manifest
-import android.app.Dialog
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.net.Uri
@@ -49,31 +48,33 @@ class ViewPostDialogFragment : DialogFragment() {
         return inflater.inflate(R.layout.dialog_view_post, container, false)
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val backButton = view.findViewById<ImageButton>(R.id.backButton) //뒤로가기 버튼 추가
+        val backButton = view.findViewById<ImageButton>(R.id.backButton)
         val photoImageView = view.findViewById<ImageView>(R.id.photoImageView)
         val postTextView = view.findViewById<TextView>(R.id.postTextView)
+        val additionalTextView = view.findViewById<TextView>(R.id.additionalTextView)
 
         val photoUri = arguments?.getString(ARG_PHOTO_URI) ?: ""
         val postText = arguments?.getString(ARG_POST_TEXT) ?: "텍스트 없음"
+        val additionalText = arguments?.getString(ARG_ADDITIONAL_TEXT) ?: "추가 텍스트 없음"
 
         Log.d("ViewPostDialogFragment", "photoUri: $photoUri")
         Log.d("ViewPostDialogFragment", "postText: $postText")
+        Log.d("ViewPostDialogFragment", "additionalText: $additionalText")
 
         // 뒤로가기 버튼 클릭 이벤트 처리
         backButton.setOnClickListener {
             dismiss() // 다이얼로그 닫기
         }
 
-
         // 권한 확인 및 요청
         checkAndRequestPermission(photoImageView, photoUri)
 
         // 텍스트 설정
         postTextView.text = postText
+        additionalTextView.text = additionalText
     }
 
     override fun onRequestPermissionsResult(
@@ -147,13 +148,15 @@ class ViewPostDialogFragment : DialogFragment() {
     companion object {
         private const val ARG_PHOTO_URI = "photoUri"
         private const val ARG_POST_TEXT = "postText"
+        private const val ARG_ADDITIONAL_TEXT = "additionalText"
         private const val REQUEST_CODE_READ_STORAGE = 101
 
-        fun newInstance(photoUri: String, postText: String): ViewPostDialogFragment {
+        fun newInstance(photoUri: String, postText: String, additionalText: String): ViewPostDialogFragment {
             val fragment = ViewPostDialogFragment()
             val args = Bundle()
             args.putString(ARG_PHOTO_URI, photoUri)
             args.putString(ARG_POST_TEXT, postText)
+            args.putString(ARG_ADDITIONAL_TEXT, additionalText)
             fragment.arguments = args
             return fragment
         }

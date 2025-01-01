@@ -39,60 +39,73 @@ class AddPostDialogFragment : DialogFragment() {
         }
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // 뷰 초기화
         val backButton = view.findViewById<ImageButton>(R.id.backButton_add)
         val selectedImageView = view.findViewById<ImageView>(R.id.selectedImageView)
         val selectPhotoButton = view.findViewById<ImageButton>(R.id.selectPhotoButton)
         val postEditText = view.findViewById<EditText>(R.id.postEditText)
+        val additionalTextEdit = view.findViewById<EditText>(R.id.additionalTextEdit)
         val addPostButton = view.findViewById<Button>(R.id.addPostButtonDialog)
 
-
-
         // ImageView를 정사각형으로 설정
-        selectedImageView.post {
-            val width = selectedImageView.width
-            val layoutParams = selectedImageView.layoutParams
-            layoutParams.height = width // 높이를 가로와 동일하게 설정
-            selectedImageView.layoutParams = layoutParams
-        }
-        backButton.setOnClickListener {
-            dismiss() // 다이얼로그 닫기
-        }
+        setSquareImageView(selectedImageView)
+
+        // 뒤로가기 버튼 동작
+        backButton.setOnClickListener { dismiss() }
 
         // 사진 선택 버튼
-        selectPhotoButton.setOnClickListener {
-            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-            startActivityForResult(intent, PICK_IMAGE_REQUEST_CODE)
-        }
+        selectPhotoButton.setOnClickListener { openImagePicker() }
 
         // 추가 버튼
         addPostButton.setOnClickListener {
             val postText = postEditText.text.toString()
-            val listener = targetFragment as? AddPostListener // targetFragment 사용
-            if (selectedImageUri != null && postText.isNotEmpty()) {
-                listener?.onPostAdded(selectedImageUri.toString(), postText)
+            val additionalText = additionalTextEdit.text.toString()
+            if (validateInputs(postText, additionalText)) {
+                val listener = targetFragment as? AddPostListener
+                listener?.onPostAdded(selectedImageUri.toString(), postText, additionalText)
                 Log.d("AddPostDialogFragment", "onPostAdded 호출됨")
                 dismiss()
-            } else {
-                Toast.makeText(requireContext(), "사진과 텍스트를 입력하세요.", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    // 갤러리에서 사진 선택
+    private fun setSquareImageView(imageView: ImageView) {
+        imageView.post {
+            val width = imageView.width
+            imageView.layoutParams.height = width // 높이를 가로와 동일하게 설정
+        }
+    }
+
+    private fun openImagePicker() {
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        startActivityForResult(intent, PICK_IMAGE_REQUEST_CODE)
+    }
+
+    private fun validateInputs(postText: String, additionalText: String): Boolean {
+        return if (selectedImageUri != null && postText.isNotEmpty() && additionalText.isNotEmpty()) {
+            true
+        } else {
+            Toast.makeText(requireContext(), "사진과 텍스트를 입력하세요.", Toast.LENGTH_SHORT).show()
+            false
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICK_IMAGE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             selectedImageUri = data?.data
-            view?.findViewById<ImageView>(R.id.selectedImageView)?.setImageURI(selectedImageUri)
-
-            // 사진 선택 버튼 숨기기
-            val selectPhotoButton = view?.findViewById<ImageButton>(R.id.selectPhotoButton)
-            selectPhotoButton?.visibility = View.GONE
+            updateSelectedImage()
         }
+    }
+
+    private fun updateSelectedImage() {
+        view?.findViewById<ImageView>(R.id.selectedImageView)?.apply {
+            setImageURI(selectedImageUri)
+        }
+        view?.findViewById<ImageButton>(R.id.selectPhotoButton)?.visibility = View.GONE
     }
 
     companion object {

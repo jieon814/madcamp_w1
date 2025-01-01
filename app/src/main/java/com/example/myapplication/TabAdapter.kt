@@ -10,9 +10,10 @@ class TabAdapter(activity: FragmentActivity) : FragmentStateAdapter(activity) {
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> Tab1()
-            1 -> Tab2()
-            2 -> Tab3()
+            2 -> Tab2()
+            1 -> Tab3()
             else -> throw IllegalStateException("Invalid position")
         }
     }
+
 }

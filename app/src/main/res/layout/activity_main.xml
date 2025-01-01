@@ -7,6 +7,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     android:background="@color/white">
 
     <!-- ViewPager2 at the top -->
@@ -23,27 +25,28 @@
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-
+        android:clipChildren="false"
+        android:clipToPadding="false"
         app:tabIconTint="@null"
-        android:background="@color/white">
+        android:background="@android:color/transparent">
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tab1_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:icon="@drawable/house_01" />
+            android:icon="@drawable/new_tab1" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tab2_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:icon="@drawable/bottom_bar_tab2_icon" />
+            android:icon="@drawable/main_logo" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tab3_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:icon="@drawable/bottom_bar_tab3_icon" />
+            android:icon="@drawable/new_tab3" />
     </com.google.android.material.tabs.TabLayout>
 
 </LinearLayout>

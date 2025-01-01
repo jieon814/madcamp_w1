@@ -1,5 +1,5 @@
 package com.example.myapplication
 
 interface AddPostListener {
-    fun onPostAdded(photoUri: String, postText: String)
+    fun onPostAdded(photoUri: String, postText: String, additionalText: String)
 }
