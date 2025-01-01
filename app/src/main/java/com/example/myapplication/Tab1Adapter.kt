@@ -9,7 +9,7 @@ import com.example.myapplication.databinding.ItemRecyclerviewBinding
 
 
 class Tab1Adapter(
-    private val items: List<CafeData>,
+    private var items: List<CafeData>,
     private val pickManager: PickManager) : RecyclerView.Adapter<Tab1Adapter.Tab1ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Tab1ViewHolder {
@@ -19,6 +19,16 @@ class Tab1Adapter(
 
     override fun onBindViewHolder(holder: Tab1ViewHolder, position: Int) {
         holder.bind(items[position])
+    }
+
+    fun getCurrentData(): List<CafeData> {
+        return items // items는 어댑터의 데이터 리스트
+    }
+
+
+    fun updateData(newItems: List<Pair<CafeData, CafePickData>>) {
+        this.items = newItems.map { it.first }
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {
@@ -70,9 +80,6 @@ class Tab1Adapter(
                 updateButtonImages(updatedPickData)
             }
 
-            binding.shopImage.setOnClickListener {
-                showCafeDialog(item)
-            }
         }
 
         // 버튼 이미지를 상태에 따라 업데이트
@@ -93,12 +100,5 @@ class Tab1Adapter(
             )
         }
 
-        private fun showCafeDialog(item: CafeData) {
-            val context = binding.root.context
-            val dialog = ViewCafeDialogFragment.newInstance(item.imageUrl, item.name)
-            if (context is FragmentActivity) {
-                dialog.show(context.supportFragmentManager, "ViewPostDialog")
-            }
-        }
     }
 }

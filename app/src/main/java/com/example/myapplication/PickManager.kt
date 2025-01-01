@@ -1,5 +1,6 @@
 package com.example.myapplication
 import android.content.Context
+import kotlin.random.Random
 
 data class CafePickData(val cafeName: String,
                         var studyPick: Int = 0, var isStudyPicked: Boolean = false,
@@ -32,14 +33,33 @@ class PickManager(private val context: Context) {
     }
 
     fun loadPickData(cafeName: String): CafePickData {
-        val studyPick = sharedPreferences.getInt("${cafeName}_studyPick", 0)
-        val isStudyPiked = sharedPreferences.getBoolean("${cafeName}_isStudyPicked", false)
-        val datePick = sharedPreferences.getInt("${cafeName}_datePick", 0)
-        val isDatePicked = sharedPreferences.getBoolean("${cafeName}_isDatePicked", false)
-        val petPick = sharedPreferences.getInt("${cafeName}_petPick", 0)
-        val isPetPicked = sharedPreferences.getBoolean("${cafeName}_isPetPicked", false)
 
-        return CafePickData(cafeName, studyPick, isStudyPiked, datePick, isDatePicked, petPick, isPetPicked)
+        val randomStudyPick = Random.nextInt(0, 21)
+        val randomDatePick = Random.nextInt(0, 21)
+        val randomPetPick = Random.nextInt(0, 21)
+
+        var studyPick = sharedPreferences.getInt("${cafeName}_studyPick", 0)
+        val isStudyPicked = sharedPreferences.getBoolean("${cafeName}_isStudyPicked", false)
+        if (studyPick == 0)  {
+            studyPick = randomStudyPick
+            saveStudyPick(cafeName, studyPick, isStudyPicked)
+        }
+        var datePick = sharedPreferences.getInt("${cafeName}_datePick", 0)
+        val isDatePicked = sharedPreferences.getBoolean("${cafeName}_isDatePicked", false)
+        if (datePick == 0)  {
+            datePick = randomDatePick
+            saveDatePick(cafeName, datePick, isDatePicked)
+        }
+
+        var petPick = sharedPreferences.getInt("${cafeName}_petPick", 0)
+        val isPetPicked = sharedPreferences.getBoolean("${cafeName}_isPetPicked", false)
+        if (petPick == 0)  {
+            petPick = randomPetPick
+            savePetPick(cafeName, petPick, isPetPicked)
+        }
+
+
+        return CafePickData(cafeName, studyPick, isStudyPicked, datePick, isDatePicked, petPick, isPetPicked)
     }
 
     fun toggleStudyPick(cafeName: String) {
@@ -53,6 +73,8 @@ class PickManager(private val context: Context) {
             pickData.isStudyPicked = true
         }
         saveStudyPick(cafeName, pickData.studyPick, pickData.isStudyPicked)
+
+        SharedPickManager.notifyListeners()
     }
 
     fun toggleDatePick(cafeName: String) {
@@ -66,6 +88,7 @@ class PickManager(private val context: Context) {
             pickData.isDatePicked = true
         }
         saveDatePick(cafeName, pickData.datePick, pickData.isDatePicked)
+        SharedPickManager.notifyListeners()
     }
 
     fun togglePetPick(cafeName: String) {
@@ -79,6 +102,7 @@ class PickManager(private val context: Context) {
             pickData.isPetPicked = true
         }
         savePetPick(cafeName, pickData.petPick, pickData.isPetPicked)
+        SharedPickManager.notifyListeners()
     }
 
 }
