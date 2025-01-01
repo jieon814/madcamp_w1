@@ -1,7 +1,11 @@
 package com.example.myapplication
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -9,6 +13,7 @@ import com.example.myapplication.databinding.ItemRecyclerviewBinding
 
 
 class Tab1Adapter(
+    private val context: Context,
     private var items: List<CafeData>,
     private val pickManager: PickManager) : RecyclerView.Adapter<Tab1Adapter.Tab1ViewHolder>() {
 
@@ -41,6 +46,13 @@ class Tab1Adapter(
             binding.shopName.text = item.name
             binding.shopAddress.text = item.address
             binding.shopHours.text = item.simpleHours
+
+            // 전화 아이콘 클릭 리스너
+            binding.phoneIcon.setOnClickListener {
+                val intent = Intent(Intent.ACTION_DIAL) // ACTION_DIAL은 전화번호를 입력한 화면으로 연결
+                intent.data = Uri.parse("tel:${item.contact}")
+                context.startActivity(intent) // 전화 앱 실행
+            }
 
             // Glide를 사용하여 이미지 로드
             Glide.with(binding.root.context)

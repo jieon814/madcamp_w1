@@ -80,7 +80,7 @@ class RecyclerViewFragment1 : Fragment(R.layout.fragment_tab1) {
         // 데이터 로드
         val cafes = tab1DataManager.loadCafes()
         // RecyclerView 설정
-        adapter = Tab1Adapter(cafes, pickManager)
+        adapter = Tab1Adapter(requireContext(), cafes, pickManager)
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
         // ItemDecoration 추가 (아이템 간 간격 설정)
