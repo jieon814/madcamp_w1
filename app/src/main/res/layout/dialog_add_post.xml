@@ -2,6 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
@@ -9,19 +10,21 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="0dp">
+
+
         <!-- 상단 영역 -->
         <RelativeLayout
             android:id="@+id/backButtonLayout"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="60dp"
             android:background="@android:color/white"
             tools:ignore="MissingConstraints">
 
             <!-- 뒤로가기 버튼 -->
             <ImageButton
                 android:id="@+id/backButton_add"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="0dp"
                 android:background="@android:color/transparent"
@@ -35,8 +38,9 @@
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
                 android:text="새 게시물"
+                android:fontFamily="@font/preahvihear_regular"
                 android:textColor="@android:color/black"
-                android:textSize="17dp" />
+                android:textSize="20dp" />
 
         </RelativeLayout>
 
@@ -83,29 +87,49 @@
         <EditText
             android:id="@+id/postEditText"
             android:layout_width="match_parent"
-            android:layout_height="36dp"
-            android:hint="카페 이름을 적어주세요..."
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:background="@android:color/white"
+            android:fontFamily="@font/preahvihear_regular"
             android:gravity="top"
-            android:lines="5"
-            android:background="@android:color/white" />
+            android:hint="카페 이름을 적어주세요..."
+            android:lines="1"
+            android:textSize="20sp" />
 
         <!-- 추가 텍스트 작성 -->
+
+        <!-- 저장 버튼 -->
         <EditText
             android:id="@+id/additionalTextEdit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="후기를 적어주세요..."
+            android:layout_height="176dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="0dp"
+            android:background="@android:color/white"
+            android:fontFamily="@font/preahvihear_regular"
             android:gravity="top"
-            android:lines="3"
-            android:background="@android:color/white" />
+            android:hint="후기를 적어주세요..."
+            android:textSize="16sp" />
 
-        <!-- 저장 버튼 -->
         <Button
             android:id="@+id/addPostButtonDialog"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="370dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
             android:layout_gravity="center"
-            android:text="추가" />
+            android:fontFamily="@font/preahvihear_regular"
+            android:text="저장"
+            android:textColor="@android:color/white"
+            android:backgroundTint="#787575"
+            android:elevation="4dp"
+            android:clipToOutline="true"
+            android:layout_marginBottom="16dp"
+            android:padding="8dp"
+            />
+
+
+
+
 
     </LinearLayout>
 

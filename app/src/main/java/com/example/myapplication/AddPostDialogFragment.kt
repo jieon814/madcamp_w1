@@ -2,13 +2,17 @@ package com.example.myapplication
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
@@ -34,8 +38,17 @@ class AddPostDialogFragment : DialogFragment() {
 
     override fun onStart() {
         super.onStart()
+
         dialog?.window?.apply {
-            setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+            // 화면 양옆 꽉 채우고 위로 붙이고 아래는 일부 공간 비움
+            val params = attributes
+            params.width = WindowManager.LayoutParams.MATCH_PARENT
+            params.height = (resources.displayMetrics.heightPixels * 0.955).toInt() // 높이를 80%로 설정
+            params.gravity = Gravity.TOP // 위로 붙이기
+            setAttributes(params)
+
+            // 배경을 투명하게 설정
+            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         }
     }
 

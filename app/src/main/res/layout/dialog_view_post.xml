@@ -8,18 +8,21 @@
     tools:ignore="ExtraText">
 
     <!-- 상단 영역 -->
+
     <RelativeLayout
         android:id="@+id/backButtonLayout"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="60dp"
         android:background="@android:color/white"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <!-- 뒤로가기 버튼 -->
         <ImageButton
             android:id="@+id/backButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_centerVertical="true"
             android:layout_marginStart="0dp"
             android:background="@android:color/transparent"
@@ -42,7 +45,7 @@
     <LinearLayout
         android:id="@+id/middleLayout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:orientation="horizontal"
         android:background="@android:color/transparent"
         app:layout_constraintTop_toBottomOf="@id/backButtonLayout"
@@ -64,12 +67,15 @@
         <!-- 텍스트 -->
         <TextView
             android:id="@+id/middleTextView"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:text="Review"
+            android:layout_marginStart="3dp"
+            android:text="review page"
+            android:fontFamily="@font/questrial_regular"
             android:textColor="@android:color/black"
-            android:textSize="23dp" />
+            android:textSize="28dp" />
     </LinearLayout>
 
     <!-- 이미지 -->
@@ -104,14 +110,19 @@
                 android:id="@+id/postTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:layout_marginStart="7dp"
+                android:textSize="20sp"
+                android:fontFamily="@font/preahvihear_regular"
                 android:textColor="@android:color/black" />
 
             <TextView
                 android:id="@+id/additionalTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="7dp"
+                android:fontFamily="@font/preahvihear_regular"
+                android:layout_marginTop="0dp"
+                android:lineSpacingExtra="-8dp"
                 android:textSize="16sp"
                 android:textColor="@android:color/black" />
         </LinearLayout>

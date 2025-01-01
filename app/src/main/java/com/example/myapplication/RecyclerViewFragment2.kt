@@ -22,7 +22,7 @@ class RecyclerViewFragment2 : Fragment(R.layout.tab3_2_fragment) {
         // RecyclerView 초기화
         recyclerView = view.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 3)
-        recyclerView.addItemDecoration(GridSpacingItemDecoration(3, 16)) // 간격 추가
+        recyclerView.addItemDecoration(GridSpacingItemDecoration(3, 2)) // 간격 추가
 
         photoAdapter = PhotoAdapter(photoList) { post ->
             // 사진 클릭 시 다이얼로그 표시

@@ -2,11 +2,14 @@ package com.example.myapplication
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,12 +38,17 @@ class ViewPostDialogFragment : DialogFragment() {
         super.onStart()
 
         dialog?.window?.apply {
-            setLayout(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT) // 화면 전체를 채움
-            setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL)
-            setBackgroundDrawableResource(android.R.color.white) // 흰 배경 설정
+            // 화면 양옆 꽉 채우고 위로 붙이고 아래는 일부 공간 비움
+            val params = attributes
+            params.width = WindowManager.LayoutParams.MATCH_PARENT
+            params.height = (resources.displayMetrics.heightPixels * 0.955).toInt() // 높이를 80%로 설정
+            params.gravity = Gravity.TOP // 위로 붙이기
+            setAttributes(params)
+
+            // 배경을 투명하게 설정
+            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         }
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
